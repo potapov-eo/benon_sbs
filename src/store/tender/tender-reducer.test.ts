@@ -1,7 +1,7 @@
 import {
     changeTableBetonProperty,
-    removeTableBeton,
-    setTableBeton, setTradingProperty,
+    removeTableBeton, setDiscount,
+    setTableBeton, setTradingProperty, setTransportPrice,
     tableBetonInitialStateType,
     tenderReducer,
 } from './tender-reducer';
@@ -26,6 +26,10 @@ beforeEach(() => {
             prize: 1,
             numberOf: 1,
         }],
+        expenses: {
+            transportPrice: 1.15,
+            discount:0
+        },
     };
 
 });
@@ -64,6 +68,10 @@ test('correct beton should be added', () => {
                 prize: 2,
                 numberOf: 2,
             }],
+            expenses: {
+                transportPrice: 1.15,
+                discount:0
+            },
         });
 });
 test('correct remove beton should be added', () => {
@@ -76,6 +84,10 @@ test('correct remove beton should be added', () => {
         {
             tradingProperty: tradingProperty,
             tableBetons: [],
+            expenses: {
+                transportPrice: 1.15,
+                discount:0
+            },
         });
 });
 test('correct property should be added', () => {
@@ -98,9 +110,13 @@ test('correct property should be added', () => {
                 prize: 1,
                 numberOf: 1,
             }],
+            expenses: {
+                transportPrice: 1.15,
+                discount:0
+            },
         });
 });
-test('correct tender property should be added', () => {
+test('correct tender property should be changed', () => {
     const newProperty = {
         downTime: 7,
         downTimePrice: 7,
@@ -131,5 +147,25 @@ test('correct tender property should be added', () => {
                 prize: 1,
                 numberOf: 1,
             }],
+            expenses: {
+                transportPrice: 1.15,
+                discount:0
+            },
         });
+});
+test('correct transport size should be added', () => {
+       const action = setTransportPrice(77);
+
+    const endState = tenderReducer(startState, action);
+
+    expect(endState.expenses.transportPrice).toEqual(77)
+
+});
+test('correct discount size should be added', () => {
+    const action = setDiscount(7);
+
+    const endState = tenderReducer(startState, action);
+
+    expect(endState.expenses.discount).toEqual(7)
+
 });

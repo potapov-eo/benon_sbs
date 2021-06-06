@@ -39,20 +39,18 @@ export const TradingTermsForm = () => {
             setIsActiveTenderForm(false);
         },
     });
-const ActiveTenderForm = () => {debugger
-    setIsActiveTenderForm(true);
-    debugger
-}
+    const ActiveTenderForm = () => {
+        setIsActiveTenderForm(true);
+    };
 
     return (
-        <form  onSubmit={formik.handleSubmit}  >
+        <form onSubmit={formik.handleSubmit}>
             <h2>Условия Торгов</h2>
             <div className={s.formLine}>
                 <div>Общая сумма выделяемая на транспорт, руб</div>
                 {isActiveTenderForm ?
                     < NumberFormat customInput={TextField} size={1} variant="outlined" name="allTransportPrice"
                                    onChange={formik.handleChange}
-                                   onBlur={formik.handleBlur}
                                    value={formik.values.allTransportPrice}
                                    placeholder={'сумма, руб'}/> : allTransportPrice}
             </div>
@@ -60,7 +58,6 @@ const ActiveTenderForm = () => {debugger
                 <div>включенное время простоя, ч</div>
                 {isActiveTenderForm ? <NumberFormat customInput={TextField} size={1} variant="outlined" name="downTime"
                                                     onChange={formik.handleChange}
-                                                    onBlur={formik.handleBlur} type="text"
                                                     value={formik.values.downTime}
                                                     placeholder={'время, ч'}/> : downTime}
             </div>
@@ -69,7 +66,6 @@ const ActiveTenderForm = () => {debugger
                 {isActiveTenderForm ?
                     <NumberFormat customInput={TextField} size={1} variant="outlined" name="downTimePrice"
                                   onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
                                   type="text" value={formik.values.downTimePrice}
                                   placeholder={'руб/час'}/> : downTimePrice}
             </div>
@@ -78,13 +74,12 @@ const ActiveTenderForm = () => {debugger
                 {isActiveTenderForm ?
                     <NumberFormat customInput={TextField} size={1} variant="outlined" name="minimumLoad"
                                   onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
                                   type="text" value={formik.values.minimumLoad} placeholder={'m3'}/> : minimumLoad}
             </div>
-            {isActiveTenderForm && < Button type='submit' variant='contained' color='primary'>ADD</Button>}
-            {!isActiveTenderForm &&  < Button onClick={ActiveTenderForm} variant="contained"
-                           color="primary">Change</Button>}
-        </form >
+            {isActiveTenderForm && < Button type="submit" variant="contained" color="primary">SAVE</Button>}
+            {!isActiveTenderForm && < Button onClick={ActiveTenderForm} variant="contained"
+                                             color="primary">Change</Button>}
+        </form>
 
     );
 };
