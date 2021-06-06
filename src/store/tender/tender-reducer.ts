@@ -2,7 +2,7 @@ const initialState = {
     tableBetons: null
 }
 
-export const tableBetonReducer = (state: tableBetonInitialStateType = initialState, action: ActionsType): tableBetonInitialStateType => {
+export const tenderReducer = (state: tableBetonInitialStateType = initialState, action: ActionsType): tableBetonInitialStateType => {
     switch (action.type) {
         case 'TABLE_BETON/SET_BETON':
             return {...state, tableBetons: [...state.tableBetons ? state.tableBetons : [], action.beton]}
@@ -34,6 +34,8 @@ export type TableBetonPropertyType =
 
 export type TableBetonType =
     {
+        article:any,
+        car: 'Миксер'| 'Самосвал'
         id: string,
         grade: string,
         mobility: string,

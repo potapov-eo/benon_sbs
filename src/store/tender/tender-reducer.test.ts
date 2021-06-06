@@ -3,8 +3,8 @@ import {
     removeTableBeton,
     setTableBeton,
     tableBetonInitialStateType,
-    tableBetonReducer
-} from "./tableBeton-reducer";
+    tenderReducer
+} from "./tender-reducer";
 
 let startState: tableBetonInitialStateType
 
@@ -12,6 +12,8 @@ let startState: tableBetonInitialStateType
 beforeEach(() => {
     startState = {
         tableBetons: [{
+            article:1111,
+            car:"Миксер",
             id: "1",
             grade: "1",
             mobility: "1",
@@ -24,6 +26,8 @@ beforeEach(() => {
 
 test('correct beton should be added', () => {
     const beton = {
+        article:1111,
+        car:'Миксер' as 'Миксер'| 'Самосвал',
         id: "2",
         grade: "2",
         mobility: "2",
@@ -32,17 +36,21 @@ test('correct beton should be added', () => {
     }
     const action = setTableBeton(beton);
 
-    const endState = tableBetonReducer(startState, action)
+    const endState = tenderReducer(startState, action)
 
     expect(endState).toEqual(
         {
             tableBetons: [{
+                article:1111,
+                car:"Миксер",
                 id: "1",
                 grade: "1",
                 mobility: "1",
                 prize: 1,
                 numberOf: 1,
             }, {
+                article:1111,
+                car:"Миксер",
                 id: "2",
                 grade: "2",
                 mobility: "2",
@@ -55,7 +63,7 @@ test('correct remove beton should be added', () => {
 
     const action = removeTableBeton("1");
 
-    const endState = tableBetonReducer(startState, action)
+    const endState = tenderReducer(startState, action)
 
     expect(endState).toEqual(
         {
@@ -68,11 +76,13 @@ test('correct property should be added', () => {
 
     const action = changeTableBetonProperty(id,property);
 
-    const endState = tableBetonReducer(startState, action)
+    const endState = tenderReducer(startState, action)
 
     expect(endState).toEqual(
         {
             tableBetons: [{
+                article:1111,
+                car:"Миксер",
                 id: "1",
                 grade: "777",
                 mobility: "1",

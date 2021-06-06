@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { Button, createStyles, makeStyles, MenuItem, Select, TextField, Theme } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import { useDispatch } from 'react-redux';
-import { setTableBeton } from '../../store/tableBeton-reducer/tableBeton-reducer';
+import { setTableBeton } from '../../store/tender/tender-reducer';
 import { v1 } from 'uuid';
 
 
@@ -14,13 +14,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 const concreteMobility = ['П1', 'П2', 'П3', 'П4'];
-const dostavka = ["Миксер", "Самосвал"]
+const car = ['Миксер', 'Самосвал'];
 
 export const InputFormBeton = () => {
     const dispatch = useDispatch();
     const formik = useFormik({
         initialValues: {
-            dostavka:"Миксер",
+            car: 'Миксер' as 'Миксер' | 'Самосвал',
             article: '',
             grade: '',
             mobility: '',
@@ -42,34 +42,27 @@ export const InputFormBeton = () => {
             return errors;
         },
         onSubmit: values => {
-            debugger
-            console.log(values);
             const beton = {
-                id: v1(), grade: values.grade, mobility: values.mobility,
+                article: values.article, car: values.car, id: v1(), grade: values.grade, mobility: values.mobility,
                 prize: Number(values.prize), numberOf: Number(values.numberOf),
             };
             dispatch(setTableBeton(beton));
             formik.resetForm();
         },
     });
-    const classes = useStyles();
-
 
     return (
         <form onSubmit={formik.handleSubmit}>
             <FormControl variant="outlined" size={'small'}>
-            <Select
-                               name="dostavka"
-                value={formik.values.dostavka}
-                onChange={formik.handleChange}
-                label="d"
-            >
-                {dostavka.map(m => <MenuItem value={m}>{m}</MenuItem>)}
-            </Select>
+                <Select
+                    name="car"
+                    value={formik.values.car}
+                    onChange={formik.handleChange}
+                    label="d"
+                >
+                    {car.map(m => <MenuItem value={m}>{m}</MenuItem>)}
+                </Select>
             </FormControl>
-            <TextField size="small" variant="outlined" name="article" onChange={formik.handleChange}
-                       onBlur={formik.handleBlur} type="text"
-                       value={formik.values.article} placeholder={'article'}/>
 
             <TextField size="small" variant="outlined" name="grade" onChange={formik.handleChange}
                        onBlur={formik.handleBlur} type="text"
