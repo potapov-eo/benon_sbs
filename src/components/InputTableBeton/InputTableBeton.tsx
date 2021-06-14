@@ -7,15 +7,11 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectorTableBetons } from '../../store/tender/tender-selector';
-import { Delete } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
-import { changeTableBetonProperty, removeTableBeton } from '../../store/tender/tender-reducer';
-import { EditableSpan } from '../EditableSpan/EditableSpan';
 import { InputFormBetonTable } from '../InputFormBetonTable/InputFormBetonTable';
-import EditIcon from '@material-ui/icons/Edit';
-import style from './InputTableBeton.module.css';
+import { InputTableBetonRow } from '../InputTableBetonRow/InputTableBetonRow';
+
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
@@ -23,19 +19,10 @@ const useStyles = makeStyles({
 });
 
 
-export default function InputTableBeton() {
+export const InputTableBeton = () => {
     const classes = useStyles();
     const betons = useSelector(selectorTableBetons);
-    const dispatch = useDispatch();
-    const removeBeton = (id: string) => {
-        dispatch(removeTableBeton(id));
-    };
-    const ChangeBeton = (newValue: string | number, id: string, property: propertyType) => {
 
-        // @ts-ignore
-        dispatch(changeTableBetonProperty(id, { [property]: newValue }));
-    };
-    const car = ['Миксер', 'Самосвал'];
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table}>
@@ -54,41 +41,42 @@ export default function InputTableBeton() {
 
                 <TableBody>
                     {betons?.map((beton) => (
-                        <TableRow key={beton.id}>
-                            <TableCell align="center">
-                                <EditableSpan value={beton.id} id={beton.id} property={'article'}
-                                              onChange={ChangeBeton}/>
-                            </TableCell>
-                            <TableCell align="center">
-                                <EditableSpan value={beton.car} id={beton.id} property={'car'} onChange={ChangeBeton}/>
-                            </TableCell>
-                            <TableCell align="center">
-                                <EditableSpan value={beton.grade} id={beton.id} property={'grade'}
-                                              onChange={ChangeBeton}/>
-                            </TableCell>
-                            <TableCell align="center">
-                                <EditableSpan value={beton.mobility} id={beton.id} property={'mobility'}
-                                              onChange={ChangeBeton}/>
-                            </TableCell>
-                            <TableCell align="center">
-                                <EditableSpan value={beton.numberOf} id={beton.id} property={'numberOf'}
-                                              onChange={ChangeBeton}/>
-                            </TableCell>
-                            <TableCell align="center">
-                                <EditableSpan value={beton.prize} id={beton.id} property={'prize'}
-                                              onChange={ChangeBeton}/>
-                            </TableCell>
-                            <TableCell align="center"  >
-                                <div className={style.change}>
-                                <IconButton onClick={() => removeBeton(beton.id)}>
-                                    <Delete/>
-                                </IconButton>
-                                <IconButton onClick={() => removeBeton(beton.id)}>
-                                    <EditIcon/>
-                                </IconButton>
-                                </div>
-                            </TableCell>
-                        </TableRow>
+                        <InputTableBetonRow key={beton.id} beton={beton}/>
+                        /* <TableRow key={beton.id}>
+                             <TableCell align="center">
+                                 <EditableSpan value={beton.id} id={beton.id} property={'article'}
+                                               onChange={ChangeBeton}/>
+                             </TableCell>
+                             <TableCell align="center">
+                                 <EditableSpan value={beton.car} id={beton.id} property={'car'} onChange={ChangeBeton}/>
+                             </TableCell>
+                             <TableCell align="center">
+                                 <EditableSpan value={beton.grade} id={beton.id} property={'grade'}
+                                               onChange={ChangeBeton}/>
+                             </TableCell>
+                             <TableCell align="center">
+                                 <EditableSpan value={beton.mobility} id={beton.id} property={'mobility'}
+                                               onChange={ChangeBeton}/>
+                             </TableCell>
+                             <TableCell align="center">
+                                 <EditableSpan value={beton.numberOf} id={beton.id} property={'numberOf'}
+                                               onChange={ChangeBeton}/>
+                             </TableCell>
+                             <TableCell align="center">
+                                 <EditableSpan value={beton.prize} id={beton.id} property={'prize'}
+                                               onChange={ChangeBeton}/>
+                             </TableCell>
+                             <TableCell align="center"  >
+                                 <div className={style.change}>
+                                 <IconButton onClick={() => removeBeton(beton.id)}>
+                                     <Delete/>
+                                 </IconButton>
+                                 <IconButton onClick={() => removeBeton(beton.id)}>
+                                     <EditIcon/>
+                                 </IconButton>
+                                 </div>
+                             </TableCell>
+                         </TableRow>*/
                     ))}
                     <InputFormBetonTable/>
                 </TableBody>
@@ -97,5 +85,5 @@ export default function InputTableBeton() {
 
         </TableContainer>
     );
-}
+};
 export type propertyType = 'grade' | 'mobility' | 'prize' | 'numberOf' | 'car' | 'article'

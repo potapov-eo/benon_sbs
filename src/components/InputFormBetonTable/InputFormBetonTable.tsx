@@ -3,25 +3,31 @@ import { useFormik } from 'formik';
 import { Button, MenuItem, Select, TableCell, TextField } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import { useDispatch } from 'react-redux';
-import { setTableBeton } from '../../store/tender/tender-reducer';
+import { ChangeTableBeton, setTableBeton, TableBetonType } from '../../store/tender/tender-reducer';
 import { v1 } from 'uuid';
 import TableRow from '@material-ui/core/TableRow';
 import NumberFormat from 'react-number-format';
 
 const concreteMobility = ['П1', 'П2', 'П3', 'П4'];
-const car = ['Миксер', 'Самосвал'];
+const carArr = ['Миксер', 'Самосвал'];
+export type InputFormBetonTableType = {
+  beton?:TableBetonType
+    changeType?: "Change" | "Add"
+}
+export const InputFormBetonTable = ({beton={car:'Миксер', article : "", grade: "",
+    mobility : "П3", prize : 0, numberOf : 0, id:""}, changeType = "Add"}:InputFormBetonTableType) => {
 
-export const InputFormBetonTable = () => {
+   const {car, article, grade ,  mobility , prize , numberOf, id } = beton
     const dispatch = useDispatch();
 
     const formik = useFormik({
         initialValues: {
-            car: 'Миксер' as 'Миксер' | 'Самосвал',
-            article: '',
-            grade: '',
-            mobility: 'П3',
-            prize: '',
-            numberOf: '',
+            car: car as 'Миксер' | 'Самосвал',
+            article: article,
+            grade: grade,
+            mobility: mobility,
+            prize: prize,
+            numberOf: numberOf,
             rememberMe: true,
         },
         validate: (values) => {
@@ -42,8 +48,9 @@ export const InputFormBetonTable = () => {
                 article: values.article, car: values.car, id: v1(), grade: values.grade, mobility: values.mobility,
                 prize: Number(values.prize), numberOf: Number(values.numberOf),
             };
-            dispatch(setTableBeton(beton));
+            changeType==="Add"? dispatch(setTableBeton(beton)): dispatch(ChangeTableBeton(beton)) ;
             formik.resetForm();
+
         },
     });
 
@@ -53,6 +60,12 @@ export const InputFormBetonTable = () => {
 
         <TableRow>
             <TableCell align="center">
+                <NumberFormat customInput={TextField} size={1} variant="outlined" name="article"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur} type="text"
+                              value={formik.values.article} placeholder={'article'}/>
+            </TableCell>
+            <TableCell align="center">
                 <FormControl variant="outlined" size={'small'}>
                     <Select
                         name="car"
@@ -60,7 +73,7 @@ export const InputFormBetonTable = () => {
                         onChange={formik.handleChange}
                         label="d"
                     >
-                        {car.map(m => <MenuItem value={m}>{m}</MenuItem>)}
+                        {carArr.map(m => <MenuItem value={m}>{m}</MenuItem>)}
                     </Select>
                 </FormControl>
             </TableCell>
@@ -100,12 +113,7 @@ export const InputFormBetonTable = () => {
                 {formik.touched.prize && formik.errors.prize ?
                     <div style={{ color: 'red' }}> {formik.errors.prize} </div> : null}
             </TableCell>
-            <TableCell align="center">
-                <NumberFormat customInput={TextField} size={1} variant="outlined" name="article"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur} type="text"
-                              value={formik.values.article} placeholder={'article'}/>
-            </TableCell>
+
             <TableCell>
                 <div><Button onClick={onSubmit} variant="contained" color="primary">ADD</Button></div>
             </TableCell>
@@ -122,3 +130,4 @@ type FormikErrorType = {
     numberOf?: string
     rememberMe?: boolean
 }
+type concreteMobilityType = "П1"|"П2"|"П3"|"П4"

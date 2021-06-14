@@ -8,7 +8,7 @@ const initialState = {
     },
     expenses: {                          // затраты:
         transportPrice: 1.15,            // возмещение транспорта м/ч за один рейс
-        discount:0                       // скидка
+        discount: 0,                       // скидка
     },
 };
 
@@ -24,11 +24,6 @@ export const tenderReducer = (state: tableBetonInitialStateType = initialState, 
                 tableBetons: state.tableBetons ? state.tableBetons.filter(bet => bet.id !== action.id) : null,
             };
 
-        case 'TABLE_BETON/CHANGE_BETON_PROPERTY':
-            const newTableBetons = state.tableBetons ?
-                state.tableBetons.map(bet => bet.id === action.id ? { ...bet, ...action.property } : bet) : [];
-            return { ...state, tableBetons: [...newTableBetons] };
-
         case 'TABLE_BETON/CHANGE_TRADING_PROPERTIES':
             return {
                 ...state,
@@ -38,13 +33,19 @@ export const tenderReducer = (state: tableBetonInitialStateType = initialState, 
         case 'TABLE_BETON/CHANGE_TRANSPORT_PRICE':
             return {
                 ...state,
-                expenses: {...state.expenses, transportPrice:action.transportPrice}
+                expenses: { ...state.expenses, transportPrice: action.transportPrice },
             };
 
         case 'TABLE_BETON/CHANGE_DISCOUNT':
             return {
                 ...state,
-                expenses: {...state.expenses, discount:action.discount}
+                expenses: { ...state.expenses, discount: action.discount },
+            };
+        case 'TABLE_BETON/CHANGE_BETON':
+            return {
+                ...state,
+                tableBetons: state.tableBetons ? state.tableBetons.map(bet =>  (bet.id === action.beton.id)?action.beton: bet)
+                    : null,
             };
 
         default:
@@ -56,17 +57,14 @@ export const setTableBeton = (beton: TableBetonType) =>
     ({ type: 'TABLE_BETON/SET_BETON', beton } as const);
 export const removeTableBeton = (id: string) =>
     ({ type: 'TABLE_BETON/REMOVE_BETON', id } as const);
-export const changeTableBetonProperty = (id: string, property: TableBetonPropertyType) =>
-    ({ type: 'TABLE_BETON/CHANGE_BETON_PROPERTY', id, property } as const);
 export const setTradingProperty = (properties: TradingPropertyType) =>
     ({ type: 'TABLE_BETON/CHANGE_TRADING_PROPERTIES', properties } as const);
 export const setTransportPrice = (transportPrice: number) =>
     ({ type: 'TABLE_BETON/CHANGE_TRANSPORT_PRICE', transportPrice } as const);
 export const setDiscount = (discount: number) =>
     ({ type: 'TABLE_BETON/CHANGE_DISCOUNT', discount } as const);
-
-export type TableBetonPropertyType =
-    { grade: string } | { mobility: string } | { prize: number } | { numberOf: number }
+export const ChangeTableBeton = (beton: TableBetonType) =>
+    ({ type: 'TABLE_BETON/CHANGE_BETON', beton } as const);
 
 
 export type TableBetonType =
@@ -93,17 +91,17 @@ export type tableBetonInitialStateType = {
     tradingProperty: TradingPropertyType
     expenses: {
         transportPrice: number,
-        discount:number
+        discount: number
     },
 }
 
 type ActionsType =
     ReturnType<typeof setTableBeton> |
     ReturnType<typeof removeTableBeton> |
-    ReturnType<typeof changeTableBetonProperty> |
-    ReturnType<typeof setTradingProperty>|
-    ReturnType<typeof setTransportPrice>|
-    ReturnType<typeof setDiscount>
+    ReturnType<typeof setTradingProperty> |
+    ReturnType<typeof setTransportPrice> |
+    ReturnType<typeof setDiscount>|
+    ReturnType<typeof ChangeTableBeton>
 
 
 
