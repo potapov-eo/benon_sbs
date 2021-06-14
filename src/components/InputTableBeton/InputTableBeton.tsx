@@ -42,41 +42,6 @@ export const InputTableBeton = () => {
                 <TableBody>
                     {betons?.map((beton) => (
                         <InputTableBetonRow key={beton.id} beton={beton}/>
-                        /* <TableRow key={beton.id}>
-                             <TableCell align="center">
-                                 <EditableSpan value={beton.id} id={beton.id} property={'article'}
-                                               onChange={ChangeBeton}/>
-                             </TableCell>
-                             <TableCell align="center">
-                                 <EditableSpan value={beton.car} id={beton.id} property={'car'} onChange={ChangeBeton}/>
-                             </TableCell>
-                             <TableCell align="center">
-                                 <EditableSpan value={beton.grade} id={beton.id} property={'grade'}
-                                               onChange={ChangeBeton}/>
-                             </TableCell>
-                             <TableCell align="center">
-                                 <EditableSpan value={beton.mobility} id={beton.id} property={'mobility'}
-                                               onChange={ChangeBeton}/>
-                             </TableCell>
-                             <TableCell align="center">
-                                 <EditableSpan value={beton.numberOf} id={beton.id} property={'numberOf'}
-                                               onChange={ChangeBeton}/>
-                             </TableCell>
-                             <TableCell align="center">
-                                 <EditableSpan value={beton.prize} id={beton.id} property={'prize'}
-                                               onChange={ChangeBeton}/>
-                             </TableCell>
-                             <TableCell align="center"  >
-                                 <div className={style.change}>
-                                 <IconButton onClick={() => removeBeton(beton.id)}>
-                                     <Delete/>
-                                 </IconButton>
-                                 <IconButton onClick={() => removeBeton(beton.id)}>
-                                     <EditIcon/>
-                                 </IconButton>
-                                 </div>
-                             </TableCell>
-                         </TableRow>*/
                     ))}
                     <InputFormBetonTable/>
                 </TableBody>

@@ -9,7 +9,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectorCalculateTableBetons } from '../../store/tender/tender-selector';
-import { removeTableBeton } from '../../store/tender/tender-reducer';
 
 const useStyles = makeStyles({
     table: {
@@ -22,9 +21,6 @@ export default function ResultTable() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const betons = useSelector(selectorCalculateTableBetons);
-    const removeBeton = (id: string) => {
-        dispatch(removeTableBeton(id));
-    };
 
     return (
         <TableContainer component={Paper}>
@@ -48,7 +44,6 @@ export default function ResultTable() {
                 </TableHead>
 
                 <TableBody>
-
 
                     {betons?.map((beton, index) => (
                         <TableRow key={beton.id}>

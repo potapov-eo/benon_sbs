@@ -13,7 +13,6 @@ export const PageOne = () => {
         <>
             <div className={style.xxx}>
                 <InputTableBeton/>
-                {/*<InputFormBeton/>*/}
                 <TradingTermsForm/>
                 <ExpensesForm/>
                 <Button variant="contained" color="primary">Рассчитать</Button>
