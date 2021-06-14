@@ -11,13 +11,18 @@ import NumberFormat from 'react-number-format';
 const concreteMobility = ['П1', 'П2', 'П3', 'П4'];
 const carArr = ['Миксер', 'Самосвал'];
 export type InputFormBetonTableType = {
-  beton?:TableBetonType
-    changeType?: "Change" | "Add"
+    beton?: TableBetonType
+    changeType?: 'Change' | 'Add'
+    setIsChangeBeton?:(isChangeBeton:boolean)=>void
 }
-export const InputFormBetonTable = ({beton={car:'Миксер', article : "", grade: "",
-    mobility : "П3", prize : 0, numberOf : 0, id:""}, changeType = "Add"}:InputFormBetonTableType) => {
+export const InputFormBetonTable = ({
+                                        beton = {
+                                            car: 'Миксер', article: '', grade: '',
+                                            mobility: 'П3', prize: 0, numberOf: 0, id: '',
+                                        }, changeType = 'Add', setIsChangeBeton
+                                    }: InputFormBetonTableType) => {
 
-   const {car, article, grade ,  mobility , prize , numberOf, id } = beton
+    const { car, article, grade, mobility, prize, numberOf, id } = beton;
     const dispatch = useDispatch();
 
     const formik = useFormik({
@@ -45,10 +50,18 @@ export const InputFormBetonTable = ({beton={car:'Миксер', article : "", gr
         },
         onSubmit: values => {
             const beton = {
-                article: values.article, car: values.car, id: v1(), grade: values.grade, mobility: values.mobility,
-                prize: Number(values.prize), numberOf: Number(values.numberOf),
+                article: values.article,
+                car: values.car,
+                id: changeType === 'Add' ? v1() : id,
+                grade: values.grade,
+                mobility: values.mobility,
+                prize: Number(values.prize),
+                numberOf: Number(values.numberOf),
             };
-            changeType==="Add"? dispatch(setTableBeton(beton)): dispatch(ChangeTableBeton(beton)) ;
+            if(changeType === 'Add') { dispatch(setTableBeton(beton)) }else {
+                dispatch(ChangeTableBeton(beton));
+                if(setIsChangeBeton ) setIsChangeBeton(false) ;
+            }
             formik.resetForm();
 
         },
@@ -115,7 +128,7 @@ export const InputFormBetonTable = ({beton={car:'Миксер', article : "", gr
             </TableCell>
 
             <TableCell>
-                <div><Button onClick={onSubmit} variant="contained" color="primary">ADD</Button></div>
+                <div><Button onClick={onSubmit} variant="contained" color="primary">{(changeType === 'Add')?"ADD":"Change"}</Button></div>
             </TableCell>
         </TableRow>
 
@@ -130,4 +143,4 @@ type FormikErrorType = {
     numberOf?: string
     rememberMe?: boolean
 }
-type concreteMobilityType = "П1"|"П2"|"П3"|"П4"
+type concreteMobilityType = 'П1' | 'П2' | 'П3' | 'П4'

@@ -44,8 +44,12 @@ export const tenderReducer = (state: tableBetonInitialStateType = initialState, 
         case 'TABLE_BETON/CHANGE_BETON':
             return {
                 ...state,
-                tableBetons: state.tableBetons ? state.tableBetons.map(bet =>  (bet.id === action.beton.id)?action.beton: bet)
-                    : null,
+                tableBetons: state.tableBetons ? state.tableBetons.map(bet => {debugger
+                   if( bet.id === action.beton.id){  debugger
+                       return action.beton
+                   }else {debugger
+                       return bet }
+                }) : null,
             };
 
         default:
