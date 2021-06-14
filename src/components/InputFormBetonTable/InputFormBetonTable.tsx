@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Button, createStyles, makeStyles, MenuItem, Select, TableCell, TextField, Theme } from '@material-ui/core';
+import { Button, MenuItem, Select, TableCell, TextField } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import { useDispatch } from 'react-redux';
 import { setTableBeton } from '../../store/tender/tender-reducer';
@@ -8,13 +8,6 @@ import { v1 } from 'uuid';
 import TableRow from '@material-ui/core/TableRow';
 import NumberFormat from 'react-number-format';
 
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        formControl: {},
-        selectEmpty: {},
-    }),
-);
 const concreteMobility = ['П1', 'П2', 'П3', 'П4'];
 const car = ['Миксер', 'Самосвал'];
 
@@ -59,13 +52,6 @@ export const InputFormBetonTable = () => {
     return (
 
         <TableRow>
-
-            <TableCell align="center">
-                <NumberFormat customInput={TextField} size={1} variant="outlined" name="article"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur} type="text"
-                              value={formik.values.article} placeholder={'article'}/>
-            </TableCell>
             <TableCell align="center">
                 <FormControl variant="outlined" size={'small'}>
                     <Select
@@ -82,7 +68,8 @@ export const InputFormBetonTable = () => {
                 <TextField size="small" variant="outlined" name="grade" onChange={formik.handleChange}
                            onBlur={formik.handleBlur} type="text" error={!!formik.errors.grade}
                            value={formik.values.grade} placeholder={'Марка бетона'}/>
-
+                {formik.touched.grade && formik.errors.grade ?
+                    <div style={{ color: 'red' }}> {formik.errors.grade} </div> : null}
             </TableCell>
             <TableCell>
                 <FormControl variant="outlined" size={'small'}>
@@ -102,21 +89,23 @@ export const InputFormBetonTable = () => {
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur} error={!!formik.errors.numberOf}
                               value={formik.values.numberOf} placeholder={'количество, м3'}/>
+                {formik.touched.numberOf && formik.errors.numberOf ?
+                    <div style={{ color: 'red' }}> {formik.errors.numberOf} </div> : null}
             </TableCell>
             <TableCell>
                 <NumberFormat customInput={TextField} size={1} variant="outlined" name="prize"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur} error={!!formik.errors.prize}
                               value={formik.values.prize} placeholder={'Цена'}/>
+                {formik.touched.prize && formik.errors.prize ?
+                    <div style={{ color: 'red' }}> {formik.errors.prize} </div> : null}
             </TableCell>
-            {formik.touched.numberOf && formik.errors.numberOf ?
-                <div style={{ color: 'red' }}> {formik.errors.numberOf} </div> : null}
-            {formik.touched.article && formik.errors.article ?
-                <div style={{ color: 'red' }}> {formik.errors.article} </div> : null}
-            {formik.touched.grade && formik.errors.grade ?
-                <div style={{ color: 'red' }}> {formik.errors.grade} </div> : null}
-            {formik.touched.prize && formik.errors.prize ?
-                <div style={{ color: 'red' }}> {formik.errors.prize} </div> : null}
+            <TableCell align="center">
+                <NumberFormat customInput={TextField} size={1} variant="outlined" name="article"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur} type="text"
+                              value={formik.values.article} placeholder={'article'}/>
+            </TableCell>
             <TableCell>
                 <div><Button onClick={onSubmit} variant="contained" color="primary">ADD</Button></div>
             </TableCell>

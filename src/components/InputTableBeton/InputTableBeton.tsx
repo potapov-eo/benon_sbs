@@ -14,7 +14,8 @@ import { IconButton } from '@material-ui/core';
 import { changeTableBetonProperty, removeTableBeton } from '../../store/tender/tender-reducer';
 import { EditableSpan } from '../EditableSpan/EditableSpan';
 import { InputFormBetonTable } from '../InputFormBetonTable/InputFormBetonTable';
-
+import EditIcon from '@material-ui/icons/Edit';
+import style from './InputTableBeton.module.css';
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
@@ -52,9 +53,6 @@ export default function InputTableBeton() {
                 </TableHead>
 
                 <TableBody>
-
-
-
                     {betons?.map((beton) => (
                         <TableRow key={beton.id}>
                             <TableCell align="center">
@@ -80,10 +78,15 @@ export default function InputTableBeton() {
                                 <EditableSpan value={beton.prize} id={beton.id} property={'prize'}
                                               onChange={ChangeBeton}/>
                             </TableCell>
-                            <TableCell align="center">
+                            <TableCell align="center"  >
+                                <div className={style.change}>
                                 <IconButton onClick={() => removeBeton(beton.id)}>
                                     <Delete/>
                                 </IconButton>
+                                <IconButton onClick={() => removeBeton(beton.id)}>
+                                    <EditIcon/>
+                                </IconButton>
+                                </div>
                             </TableCell>
                         </TableRow>
                     ))}
