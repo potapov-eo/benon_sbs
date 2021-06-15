@@ -13,17 +13,19 @@ const carArr = ['Миксер', 'Самосвал'];
 export type InputFormBetonTableType = {
     beton?: TableBetonType
     changeType?: 'Change' | 'Add'
-    setIsChangeBeton?:(isChangeBeton:boolean)=>void
+    setIsChangeBeton?: (isChangeBeton: boolean) => void
 }
+
 export const InputFormBetonTable = ({
                                         beton = {
                                             car: 'Миксер', article: '', grade: '',
                                             mobility: 'П3', prize: 0, numberOf: 0, id: '',
-                                        }, changeType = 'Add', setIsChangeBeton
+                                        }, changeType = 'Add', setIsChangeBeton,
                                     }: InputFormBetonTableType) => {
 
     const { car, article, grade, mobility, prize, numberOf, id } = beton;
     const dispatch = useDispatch();
+
 
     const formik = useFormik({
         initialValues: {
@@ -58,12 +60,11 @@ export const InputFormBetonTable = ({
                 prize: Number(values.prize),
                 numberOf: Number(values.numberOf),
             };
-            if(changeType === 'Add') { dispatch(setTableBeton(beton)) }else {
+            if (changeType === 'Add') { dispatch(setTableBeton(beton)); } else {
                 dispatch(ChangeTableBeton(beton));
-                if(setIsChangeBeton ) setIsChangeBeton(false) ;
+                if (setIsChangeBeton) setIsChangeBeton(false);
             }
             formik.resetForm();
-
         },
     });
 
@@ -73,7 +74,7 @@ export const InputFormBetonTable = ({
 
         <TableRow>
             <TableCell align="center">
-                <NumberFormat customInput={TextField} size={1} variant="outlined" name="article"
+                <NumberFormat customInput={TextField} variant="outlined" name="article"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur} type="text"
                               value={formik.values.article} placeholder={'article'}/>
@@ -91,7 +92,8 @@ export const InputFormBetonTable = ({
                 </FormControl>
             </TableCell>
             <TableCell>
-                <TextField size="small" variant="outlined" name="grade" onChange={formik.handleChange}
+                <TextField style={{ margin: 1 }}
+                           size="small" variant="outlined" name="grade" onChange={formik.handleChange}
                            onBlur={formik.handleBlur} type="text" error={!!formik.errors.grade}
                            value={formik.values.grade} placeholder={'Марка бетона'}/>
                 {formik.touched.grade && formik.errors.grade ?
@@ -128,7 +130,8 @@ export const InputFormBetonTable = ({
             </TableCell>
 
             <TableCell>
-                <div><Button onClick={onSubmit} variant="contained" color="primary">{(changeType === 'Add')?"ADD":"Change"}</Button></div>
+                <div><Button onClick={onSubmit} variant="contained"
+                             color="primary">{(changeType === 'Add') ? 'ADD' : 'Change'}</Button></div>
             </TableCell>
         </TableRow>
 
@@ -143,4 +146,4 @@ type FormikErrorType = {
     numberOf?: string
     rememberMe?: boolean
 }
-type concreteMobilityType = 'П1' | 'П2' | 'П3' | 'П4'
+

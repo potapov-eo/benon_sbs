@@ -7,19 +7,18 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectorCalculateTableBetons } from '../../store/tender/tender-selector';
 
 const useStyles = makeStyles({
     table: {
-        minWidth: 650,
+        minWidth: 1250,
     },
 });
 
 
 export default function ResultTable() {
     const classes = useStyles();
-    const dispatch = useDispatch();
     const betons = useSelector(selectorCalculateTableBetons);
 
     return (
@@ -88,9 +87,7 @@ export default function ResultTable() {
                         </TableRow>
                     ))}
                 </TableBody>
-
             </Table>
-
         </TableContainer>
     );
 }

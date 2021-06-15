@@ -14,10 +14,9 @@ import { InputTableBetonRow } from '../InputTableBetonRow/InputTableBetonRow';
 
 const useStyles = makeStyles({
     table: {
-        minWidth: 650,
+        minWidth: 1100,
     },
 });
-
 
 export const InputTableBeton = () => {
     const classes = useStyles();
@@ -49,6 +48,7 @@ export const InputTableBeton = () => {
             </Table>
 
         </TableContainer>
+
     );
 };
-export type propertyType = 'grade' | 'mobility' | 'prize' | 'numberOf' | 'car' | 'article'
+

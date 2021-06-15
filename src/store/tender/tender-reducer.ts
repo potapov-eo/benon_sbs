@@ -1,5 +1,13 @@
 const initialState = {
-    tableBetons: null,                  // бетоны для тендера
+    tableBetons: [ {
+        article: "any",
+        car: 'Миксер',
+        id: "string",
+        grade: "sssss",
+        mobility: "П3",
+        prize: 1111,
+        numberOf: 2222,
+    }] as TableBetonType[],                  // бетоны для тендера
     tradingProperty: {                   // условия тендераЖ
         downTime: 0.75,                 // включенное время простоя, ч
         downTimePrice: 50,              // стоимость сверх нормативного времени простоя, руб/час
