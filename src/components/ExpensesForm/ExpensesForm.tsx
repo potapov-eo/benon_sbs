@@ -18,11 +18,10 @@ export const ExpensesForm = () => {
     };
 
     return (
-        < >
+        <div className={s.expensesFormBlock} >
             <h2>Затраты</h2>
             <div className={s.formLine}>
                 <div>возмещение транспорта, м/ч</div>
-
                 < NumberFormat customInput={TextField} variant="outlined"
                                onChange={transportPriceHandleChange}
                                value={transportPrice}
@@ -37,7 +36,7 @@ export const ExpensesForm = () => {
                                placeholder={'сумма, руб'}/>
             </div>
 
-        </>
+        </div>
     );
 
 };

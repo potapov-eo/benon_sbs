@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { Button, TextField } from '@material-ui/core';
 import NumberFormat from 'react-number-format';
 import s from './TradingTermsForm.module.css';
@@ -13,7 +13,6 @@ export const TradingTermsForm = () => {
     const TradingProperties = useSelector(selectorTradingProperties);
     const { allTransportPrice, downTime, downTimePrice, minimumLoad } = TradingProperties;
 
-
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -21,13 +20,6 @@ export const TradingTermsForm = () => {
             downTime: downTime, // включенное время простоя, ч
             downTimePrice: downTimePrice, // стоимость сверх нормативного времени простоя, руб/час
             minimumLoad: minimumLoad, // минимальная загрузка, м3
-        },
-        validate: (values) => {
-            const errors: FormikErrorType = {};
-            /* if (!/^[0-9]+$/.test(values.numberOf)) {
-                 errors.numberOf = 'Введите количество м3 в правильном формате';
-                        }*/
-            return errors;
         },
         onSubmit: values => {
             const TradingProperty = {
@@ -42,29 +34,29 @@ export const TradingTermsForm = () => {
     const ActiveTenderForm = () => {
         setIsActiveTenderForm(true);
     };
-
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} className={s.tradingTermsFormBlock}>
             <h2>Условия Торгов</h2>
             <div className={s.formLine}>
                 <div>Общая сумма выделяемая на транспорт, руб</div>
                 {isActiveTenderForm ?
-                    < NumberFormat customInput={TextField} size={1} variant="outlined" name="allTransportPrice"
+                    < NumberFormat customInput={TextField} variant="outlined" name="allTransportPrice"
                                    onChange={formik.handleChange}
                                    value={formik.values.allTransportPrice}
                                    placeholder={'сумма, руб'}/> : allTransportPrice}
             </div>
             <div className={s.formLine}>
                 <div>включенное время простоя, ч</div>
-                {isActiveTenderForm ? <NumberFormat customInput={TextField} size={1} variant="outlined" name="downTime"
-                                                    onChange={formik.handleChange}
-                                                    value={formik.values.downTime}
-                                                    placeholder={'время, ч'}/> : downTime}
+                {isActiveTenderForm ?
+                    <NumberFormat disabled={true} customInput={TextField} variant="outlined" name="downTime"
+                                  onChange={formik.handleChange}
+                                  value={formik.values.downTime}
+                                  placeholder={'время, ч'}/> : downTime}
             </div>
             <div className={s.formLine}>
                 <div> стоимость сверх нормативного времени простоя, руб/час</div>
                 {isActiveTenderForm ?
-                    <NumberFormat customInput={TextField} size={1} variant="outlined" name="downTimePrice"
+                    <NumberFormat disabled={true} customInput={TextField} variant="outlined" name="downTimePrice"
                                   onChange={formik.handleChange}
                                   type="text" value={formik.values.downTimePrice}
                                   placeholder={'руб/час'}/> : downTimePrice}
@@ -72,15 +64,17 @@ export const TradingTermsForm = () => {
             <div className={s.formLine}>
                 <div>минимальная загрузка, м3</div>
                 {isActiveTenderForm ?
-                    <NumberFormat customInput={TextField} size={1} variant="outlined" name="minimumLoad"
+                    <NumberFormat disabled={true} customInput={TextField} variant="outlined" name="minimumLoad"
                                   onChange={formik.handleChange}
                                   type="text" value={formik.values.minimumLoad} placeholder={'m3'}/> : minimumLoad}
             </div>
-            {isActiveTenderForm && < Button type="submit" variant="contained" color="primary">SAVE</Button>}
-            {!isActiveTenderForm && < Button onClick={ActiveTenderForm} variant="contained"
-                                             color="primary">Change</Button>}
+            <div className={s.saveButton}>
+                {isActiveTenderForm && < Button type="submit" variant="contained" color="primary">SAVE</Button>}
+                {!isActiveTenderForm && < Button onClick={ActiveTenderForm} variant="contained"
+                                                 color="primary">Change</Button>}
+            </div>
         </form>
 
     );
 };
-type FormikErrorType = {}
+

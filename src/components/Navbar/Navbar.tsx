@@ -9,8 +9,7 @@ export const Navbar = () => {
 
 
     return (
-        <>
-            <AppBar position="static">
+            <AppBar position="static" className={style.appBarBlock}>
                 <Toolbar>
                     <div className={style.nav}>
                     <span>
@@ -22,6 +21,5 @@ export const Navbar = () => {
                     </div>
                 </Toolbar>
             </AppBar>
-        </>
     )
 }

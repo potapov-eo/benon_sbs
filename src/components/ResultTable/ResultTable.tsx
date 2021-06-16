@@ -82,8 +82,6 @@ export default function ResultTable() {
                             <TableCell align="center">
                                 {beton.totalNDS}
                             </TableCell>
-                            <TableCell align="center">
-                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

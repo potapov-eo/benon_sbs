@@ -3,5 +3,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    align-items: center;
     max-width: 700px;
+    height: 30px;
+    padding: 0 50px;
+    background-color: #efefef;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.tradingTermsFormBlock {
+   width: 50%;
+}
+.saveButton {
+   margin-top: 20px;
 }
