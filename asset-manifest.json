@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/benon_sbs/static/css/main.38353de0.chunk.css",
+    "main.js": "/benon_sbs/static/js/main.05724423.chunk.js",
+    "main.js.map": "/benon_sbs/static/js/main.05724423.chunk.js.map",
+    "runtime-main.js": "/benon_sbs/static/js/runtime-main.b6228b25.js",
+    "runtime-main.js.map": "/benon_sbs/static/js/runtime-main.b6228b25.js.map",
+    "static/js/2.98e6439a.chunk.js": "/benon_sbs/static/js/2.98e6439a.chunk.js",
+    "static/js/2.98e6439a.chunk.js.map": "/benon_sbs/static/js/2.98e6439a.chunk.js.map",
+    "static/js/3.84d98ede.chunk.js": "/benon_sbs/static/js/3.84d98ede.chunk.js",
+    "static/js/3.84d98ede.chunk.js.map": "/benon_sbs/static/js/3.84d98ede.chunk.js.map",
+    "index.html": "/benon_sbs/index.html",
+    "static/css/main.38353de0.chunk.css.map": "/benon_sbs/static/css/main.38353de0.chunk.css.map",
+    "static/js/2.98e6439a.chunk.js.LICENSE.txt": "/benon_sbs/static/js/2.98e6439a.chunk.js.LICENSE.txt",
+    "static/media/Infinity-1s-200px.2a677e42.svg": "/benon_sbs/static/media/Infinity-1s-200px.2a677e42.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b6228b25.js",
+    "static/js/2.98e6439a.chunk.js",
+    "static/css/main.38353de0.chunk.css",
+    "static/js/main.05724423.chunk.js"
+  ]
+}
